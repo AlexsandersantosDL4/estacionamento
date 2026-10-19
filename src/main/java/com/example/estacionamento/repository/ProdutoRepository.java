@@ -24,14 +24,14 @@ public class ProdutoRepository {
         //buscar produtos
     }
 
-    public Optional<Produto> findBtId(Long id) {
+    public Optional<Produto> findById(Long id) {
         return dados.stream().filter(
                 produto -> produto.getId().equals(id)).findFirst();
     }
 
     public Produto save(Produto produto) {
         if (produto.getId() == null) {
-            produto.setId(proximoID);
+            produto.setId(proximoID++);
             dados.add(produto);
             //salvar produto
         }else {
