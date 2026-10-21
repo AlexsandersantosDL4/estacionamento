@@ -1,7 +1,9 @@
 package com.example.estacionamento.controller;
 
+import com.example.estacionamento.dto.ProdutoRequestDTO;
 import com.example.estacionamento.model.Produto;
 import com.example.estacionamento.sevice.ProdutoService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,9 +30,9 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrarProduto(@RequestBody ProdutoDTO produtoDTO) {
+    public ResponseEntity<ProdutoRequestDTO> cadastrarProduto(@Valid @RequestBody ProdutoRequestDTO produtoDTO) {
         try {
-            Produto novoProduto = produtoService.cadastrarProduto(produtoDTO);
+            ProdutoRequestDTO novoProduto = produtoService.cadastrarProduto(produtoDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(novoProduto);
         } catch (IllegalArgumentException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
